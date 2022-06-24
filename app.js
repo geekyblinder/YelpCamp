@@ -4,6 +4,7 @@ const bodyParser=require("body-parser");
 const mongoose=require("mongoose");
 const flash=require("connect-flash");
 const passport=require("passport");
+const dotenv=require("dotenv");
 const LocalStartegy=require("passport-local");
 const methodOverride=require("method-override");
 const Campground=require("./models/campground");
@@ -17,10 +18,11 @@ const indexRoutes=require("./routes/index");
 
 const app=express();
 
+dotenv.config();
 
-
-mongoose.connect("mongodb+srv://Kartech867:Manutd223@cluster0.ia1yb.mongodb.net/yelp_camp");
-
+var url = process.env.MONGO_DB_URI;
+mongoose.connect(url);
+var id= process.env.ID;
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.set("view engine","ejs");
@@ -29,7 +31,7 @@ app.use(methodOverride("_method"));
 app.use(flash());
 // seedDB();
 app.use(require("express-session")({
-    secret:"we will we will precursive shock you!",
+    secret:id,
     resave:false,
     saveUninitialized:false
 }));
