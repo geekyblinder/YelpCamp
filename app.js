@@ -51,6 +51,10 @@ app.use(indexRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 app.use("/campgrounds",campgroundRoutes);
 
-app.listen(3000,function(){
-    console.log("Started!");
+let port=process.env.PORT;
+if(port==null || port==""){
+    port=3000;
+}
+app.listen(port,function(){
+    console.log("Server has started!");
 });
